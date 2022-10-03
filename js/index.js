@@ -4,7 +4,8 @@ async function getBeerList() {
         .then(response => {
             response.json().then((data) => {
                 data.forEach(function selectplaylists(beer) {
-                        setBeerList(beer.name, beer.description, beer.image_url)
+                        console.log(beer)
+                        setBeerList(beer.name, beer.description, beer.image_url, beer.brewers_tips, beer.contributed_by, beer.tagline, beer.ph, beer.first_brewed, beer.abv, beer.attenuation_level, beer.volume, beer.srm)
                 })
             })
         })
@@ -17,7 +18,7 @@ var textoBusca = ""
 
 getBeerList()
 
-function setBeerList(name, description, image_url) {
+function setBeerList(name, description, image_url, brewers_tips, contributed_by, tagline, ph, first_brewed, abv, attenuation_level, volume, srm) {
     var block = document.createElement('div');
     block.classList.add('col-md-4');
 
@@ -36,7 +37,37 @@ function setBeerList(name, description, image_url) {
     + "</div>"
 
     block.onclick = () => {
-        console.log(name);
+        var modal = document.createElement('div');
+        modal.classList.add('modal-content');
+        document.getElementById("modal-dialog").innerHTML = "";
+
+        modal.innerHTML = "<div class=\"modal-header\">"
+            + "<h3 class=\"modal-title\" id=\"exampleModalLabel\"> <i class=\"inline-icon material-symbols-outlined icon\">sports_bar</i>" + name + "</h3>"
+            + "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">"
+                + "<span aria-hidden=\"true\">&times;</span>"
+            + "</button>"
+        + "</div>"
+        + "<div class=\"modal-body\">"
+            + "<h4> <i class=\"inline-icon material-symbols-outlined icon\">label</i>" + tagline + "</h4>"
+            + description
+            + "<hr>"
+            + "<h4> <i class=\"inline-icon material-symbols-outlined icon\">tips_and_updates</i> Brewers tips: </h4>"
+            + "<p>" + brewers_tips + "</p>"
+            + "<small>-> " + contributed_by + "</small>"
+            + "<hr>"
+            + "<h4> <i class=\"inline-icon material-symbols-outlined icon\">info</i> Data: </h4>"
+            + "<p class =\"dot\"> First Brewed: " + first_brewed + "</p>"
+            + "<p class =\"dot\"> Volume: " + volume.value + " " + volume.unit + "</p>"
+            + "<p class =\"dot\"> ABV: " + abv + "</p>"
+            + "<p class =\"dot\"> Attenuation level: " + attenuation_level + "</p>"
+            + "<p class =\"dot\"> Standard Research Method: " + srm + "</p>"
+            + "<p class =\"dot\"> pH Level: " + ph + "</p>"
+        + "</div>"
+
+
+        document.getElementById("modal-dialog").insertBefore(modal, document.getElementById("modal-dialog").firstChild);
+
+        $('#exampleModal').modal('show');
     };
 
     document.getElementById("beer_list").insertBefore(block, document.getElementById("beer_list").firstChild);
