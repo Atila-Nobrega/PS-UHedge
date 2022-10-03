@@ -1,6 +1,6 @@
-async function getBeerList() {
+async function getBeerList(page_number) {
     try {
-        await fetch('https://api.punkapi.com/v2/beers?page=1&per_page=20')
+        await fetch('https://api.punkapi.com/v2/beers?page='+ page_number + '&per_page=20')
         .then(response => {
             response.json().then((data) => {
                 data.forEach(function selectplaylists(beer) {
@@ -16,11 +16,13 @@ async function getBeerList() {
 
 var textoBusca = ""
 
-getBeerList()
+var page_number = 1
+getBeerList(page_number)
 
 function setBeerList(name, description, image_url, brewers_tips, contributed_by, tagline, ph, first_brewed, abv, attenuation_level, volume, srm) {
     var block = document.createElement('div');
     block.classList.add('col-md-4');
+    block.innerHTML = ""
 
     block.innerHTML = "<div class=\"card mb-4 shadow-sm\">"
         + "<img class=\"card-img-top\" src=" + image_url + " alt=\"Card image cap\">"
@@ -70,6 +72,14 @@ function setBeerList(name, description, image_url, brewers_tips, contributed_by,
         $('#exampleModal').modal('show');
     };
 
-    document.getElementById("beer_list").insertBefore(block, document.getElementById("beer_list").firstChild);
+    document.getElementById("beer_list").insertBefore(block, document.getElementById("beer_list").lastChild);
 
 }
+
+$(window).scroll(function () { //Loads more beers when the page scrolls to the bottom.
+    if ($(document).height() <= $(window).scrollTop() + $(window).height()) {
+        window.scrollBy(0,-200)
+        page_number = page_number + 1
+        getBeerList(page_number)
+    }
+});
