@@ -72,6 +72,10 @@ height: 100px;
     flex-direction: row;
 }
 
+.card:hover {
+    cursor: pointer;
+}
+
 .card img {
     height: 100%;
     width: 20%;
@@ -80,7 +84,7 @@ height: 100px;
 }
 
 .card img:hover {
-    opacity: 0.1;
+    opacity: 0.4;
 }
 
 .card {
@@ -90,6 +94,6 @@ height: 100px;
 }
 
 .dot {
-    display: list-item; /* This has to be "list-item"                                          */
-    margin-left : 1em;  /* If you use default list-style-position 'outside', you may need this */
+    display: list-item;
+    margin-left : 1em; 
 }
