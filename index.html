@@ -16,12 +16,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- #### -->
 
-    <link href="example/album.css" rel="stylesheet">
+    <link href="css/album.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 
     <title>UHedge</title>
 </head>
 
+<!-- NavBar -->
 <body>
     <header>
         <div class="collapse bg-dark" id="navbarHeader">
@@ -29,14 +30,24 @@
                 <div class="row">
                     <div class="col-sm-8 col-md-7 py-4">
                         <h4 class="text-white">About</h4>
-                        <p class="text-muted">Write something about Uhedge Code challange and myself.</p>
+                        <p class="text-muted">Code Challange: use HTML, CSS, and Javascript to read the Punk API and display it in an organized way.</p>
+                        <p class= "text-muted"> Your goal is to implement a web solution to display the beers returned by 
+                            the API in pages, like products on Amazon Website. Two minimum pieces of 
+                            information must be shown about every beer: name and description.
+                        </p>
+                        <p class= "text-muted">
+                            Besides this, the website must provide a search engine, in which the user 
+                            informs a beer name, and, instead of continuing to show all the beers, it will 
+                            show only those filtered by the API.
+                        </p>
                     </div>
                     <div class="col-sm-4 offset-md-1 py-4">
                         <h4 class="text-white">Contact</h4>
                         <ul class="list-unstyled">
-                            <li><a href="#" class="text-white">Email</a></li>
-                            <li><a href="#" class="text-white">Linkedin</a></li>
-                            <li><a href="#" class="text-white">github</a></li>
+                            <li><a href="mailto:atila.aires2@gmail.com" class="text-white">Email (atila.aires2@gmail.com)</a></li>
+                            <li><a href="www.linkedin.com/in/atila-nobrega" class="text-white">Linkedin</a></li>
+                            <li><a href="https://github.com/Atila-Nobrega" class="text-white">github</a></li>
+                            <li><a href="https://punkapi.com/documentation/v2" class="text-white">Punk API (Docs)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -45,9 +56,9 @@
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
                 <a href="#" class="navbar-brand d-flex align-items-center">
-                    <h1>UHedge</h1>
+                    <h1>Punk API</h1>
                     <div class="header_text">
-                        <p class="header_text"> Coding Challange<i class="inline-icon material-symbols-outlined">sports_bar</i></p>
+                        <p class="header_text"> Átila Nóbrega Maia Aires<i class="inline-icon material-symbols-outlined">data_array</i></p>
                     </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,35 +66,40 @@
                 </button>
             </div>
         </div>
-      </header>
+    </header>
     
+    <!-- Central Text -->
     <section class="jumbotron text-center">
         <div class="container">
             <p class="lead text-muted">Look for a beer down below, you can use the search bar to find a specific bear by name, load more beers by scrolling to the end of the page and select a card to aquire more info. </p>
         </div>
     </section>
 
+    <!-- Search Bar -->
     <div class="container">
         <div class="row height d-flex justify-content-center align-items-center">
           <div class="col-md-8">
             <div class="search">
               <i class="inline-icon material-symbols-outlined icon">search</i>
-              <input type="text" class="form-control" placeholder="Look for specific beer name!">
-              <button class="btn btn-primary">Search</button>
+              <form name="searchForm" id="searchForm">
+                  <input type="text" class="form-control" placeholder="Look for specific beer name!" id="nameSearch">
+                  <button class="btn btn-primary">Search</button>
+              </form>
             </div>
           </div> 
         </div>
     </div>
 
+    <!-- Beer List Grid -->
     <div class="album py-5 bg-light">
         <div class="container">
-          <div class="row" id="beer_list">
+            <div class="row" id="beer_list">
             
-          </div>
+            </div>
         </div>
       </div>
 
-    <!-- Modal -->
+    <!-- Popup Modal -->
     <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document" id="modal-dialog">
         </div>
@@ -91,5 +107,6 @@
 
 </body>
 
+<!-- Load Scripts Last -->
 <script src="js/index.js"></script>
 </html>

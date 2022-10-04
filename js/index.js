@@ -1,10 +1,11 @@
+//Request beer list by page
 async function getBeerList(page_number) {
     try {
         await fetch('https://api.punkapi.com/v2/beers?page='+ page_number + '&per_page=20')
         .then(response => {
             response.json().then((data) => {
                 data.forEach(function selectplaylists(beer) {
-                        console.log(beer)
+                    console.log(beer)
                         setBeerList(beer.name, beer.description, beer.image_url, beer.brewers_tips, beer.contributed_by, beer.tagline, beer.ph, beer.first_brewed, beer.abv, beer.attenuation_level, beer.volume, beer.srm)
                 })
             })
@@ -14,16 +15,47 @@ async function getBeerList(page_number) {
     }
 }
 
-var textoBusca = ""
-
+var filter = false //There is a name filter check
 var page_number = 1
-getBeerList(page_number)
+getBeerList(page_number) // First request when page opens.
 
+//Form submit Script
+document.getElementById("searchForm").onsubmit = function() {
+    getBeerListByName(document.getElementById("nameSearch").value)
+}
+
+//Request Beer list by name
+async function getBeerListByName(name_filter) {
+    try {
+        document.getElementById("beer_list").innerHTML = "";
+        if (name_filter == ""){
+            filter = false;
+            page_number = 1;
+            getBeerList(page_number)
+        } else {
+            filter = true;
+            await fetch('https://api.punkapi.com/v2/beers?beer_name=' + name_filter)
+            .then(response => {
+                response.json().then((data) => {
+                    data.forEach(function selectplaylists(beer) {
+                            console.log(beer)
+                            setBeerList(beer.name, beer.description, beer.image_url, beer.brewers_tips, beer.contributed_by, beer.tagline, beer.ph, beer.first_brewed, beer.abv, beer.attenuation_level, beer.volume, beer.srm)
+                    })
+                })
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//Set the beer List in the HTML with the returned data.
 function setBeerList(name, description, image_url, brewers_tips, contributed_by, tagline, ph, first_brewed, abv, attenuation_level, volume, srm) {
     var block = document.createElement('div');
     block.classList.add('col-md-4');
     block.innerHTML = ""
 
+    //Create Beer Cards inside the HTML Grid.
     block.innerHTML = "<div class=\"card mb-4 shadow-sm\">"
         + "<img class=\"card-img-top\" src=" + image_url + " alt=\"Card image cap\">"
         + "<div class=\"card-body\">"
@@ -38,6 +70,7 @@ function setBeerList(name, description, image_url, brewers_tips, contributed_by,
         + "</div>"
     + "</div>"
 
+    //Set the modal to open when the Card is clicked.
     block.onclick = () => {
         var modal = document.createElement('div');
         modal.classList.add('modal-content');
@@ -76,10 +109,16 @@ function setBeerList(name, description, image_url, brewers_tips, contributed_by,
 
 }
 
-$(window).scroll(function () { //Loads more beers when the page scrolls to the bottom.
+//Loads more beers when the page scrolls to the bottom.
+$(window).scroll(function () {
     if ($(document).height() <= $(window).scrollTop() + $(window).height()) {
-        window.scrollBy(0,-200)
-        page_number = page_number + 1
-        getBeerList(page_number)
+        if (filter) {
+            
+        }
+        else {
+            window.scrollBy(0,-200)
+            page_number = page_number + 1
+            getBeerList(page_number)
+        }
     }
 });
