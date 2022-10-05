@@ -122,3 +122,7 @@ $(window).scroll(function () {
         }
     }
 });
+
+var form = document.getElementById("searchForm");
+function handleForm(event) { event.preventDefault(); } 
+form.addEventListener('submit', handleForm);
